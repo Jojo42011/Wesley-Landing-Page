@@ -23,20 +23,12 @@ export default function App() {
       <main id="main" className="landing-main container">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <span className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
-            <h1 id="hero-title">
-              Find a place
-              <br />
-              <em>that feels like home.</em>
-            </h1>
+            <h1 id="hero-title">Let’s find out what you’re looking for.</h1>
             <p>
               A few simple questions. A clearer picture of your next home in San
               Antonio.
             </p>
             <Action onClick={() => setModal("funnel")}>Find my home</Action>
-            <span className="reassurance">
-              Your pace. Your priorities. No pressure.
-            </span>
           </div>
           <Vsl />
         </section>

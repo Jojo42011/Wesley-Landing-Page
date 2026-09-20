@@ -116,14 +116,11 @@ legend span {
 }
 .monogram {
   font-family: var(--serif);
-  font-size: 55px;
-  letter-spacing: -8px;
-  line-height: 1;
-  margin-right: 8px;
-}
-.monogram > span {
-  color: var(--gold);
-  font-size: 50px;
+  font-size: 68px;
+  font-weight: 500;
+  letter-spacing: -4px;
+  line-height: 0.8;
+  margin-right: 4px;
 }
 .brand-copy {
   display: flex;
@@ -131,13 +128,14 @@ legend span {
   gap: 7px;
 }
 .brand-copy strong {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 2.5px;
+  letter-spacing: 2.2px;
 }
 .brand-copy > span {
-  font-size: 7px;
-  letter-spacing: 1.6px;
+  font-size: 7.5px;
+  letter-spacing: 1.4px;
+  color: #6e766a;
 }
 .header-location {
   font-size: 9px;
@@ -165,13 +163,13 @@ legend span {
   letter-spacing: 1.8px;
 }
 .hero h1 {
-  font-size: clamp(56px, 5.3vw, 78px);
-  line-height: 1.04;
-  letter-spacing: -1.8px;
-  margin: 24px 0;
-}
-.hero h1 em {
-  display: inline-block;
+  max-width: 650px;
+  font-family: "Manrope", sans-serif;
+  font-size: clamp(45px, 4.4vw, 64px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -2.8px;
+  margin: 0 0 28px;
 }
 .hero-copy > p {
   font-size: 14px;
@@ -209,12 +207,6 @@ legend span {
 .hero-copy > .button {
   min-width: 215px;
   margin-top: 29px;
-}
-.reassurance {
-  display: block;
-  font-size: 10px;
-  color: #777e70;
-  margin-top: 16px;
 }
 .vsl-block {
   width: 100%;
@@ -368,7 +360,7 @@ legend span {
     gap: 42px;
   }
   .hero h1 {
-    font-size: 60px;
+    font-size: 50px;
   }
   .footer-note {
     width: 100%;
@@ -394,22 +386,19 @@ legend span {
     gap: 11px;
   }
   .monogram {
-    font-size: 45px;
-    letter-spacing: -7px;
-  }
-  .monogram > span {
-    font-size: 41px;
+    font-size: 57px;
+    letter-spacing: -3px;
   }
   .brand-copy {
     gap: 5px;
   }
   .brand-copy strong {
-    font-size: 9px;
-    letter-spacing: 1.7px;
+    font-size: 9.5px;
+    letter-spacing: 1.5px;
   }
   .brand-copy > span {
-    font-size: 5.5px;
-    letter-spacing: 1.1px;
+    font-size: 6px;
+    letter-spacing: 1px;
   }
   .header-location {
     display: none;
@@ -424,9 +413,10 @@ legend span {
     margin-inline: auto;
   }
   .hero h1 {
-    font-size: clamp(48px, 10vw, 65px);
-    letter-spacing: -1px;
-    margin: 20px 0;
+    font-size: clamp(37px, 10.5vw, 53px);
+    line-height: 1.1;
+    letter-spacing: -1.8px;
+    margin: 0 0 22px;
   }
   .hero-copy > p {
     font-size: 13px;
@@ -435,10 +425,6 @@ legend span {
   .hero-copy > .button {
     margin-top: 23px;
     min-width: 205px;
-  }
-  .reassurance {
-    font-size: 9px;
-    margin-top: 13px;
   }
   .vsl-block {
     justify-self: start;
@@ -541,7 +527,7 @@ legend span {
     width: calc(100% - 32px);
   }
   .hero h1 {
-    font-size: 47px;
+    font-size: 36px;
   }
   .field-pair {
     grid-template-columns: 1fr;
