@@ -6,7 +6,7 @@ import "@fontsource/cormorant-garamond/latin-400-italic.css";
 import "@fontsource/manrope/latin-400.css";
 import "@fontsource/manrope/latin-500.css";
 import "@fontsource/manrope/latin-600.css";
-import "./styles.css";
+import "./landing.css";
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

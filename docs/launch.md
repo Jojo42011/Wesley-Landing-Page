@@ -22,7 +22,7 @@ Confirm the actual Brivity account's supported lead ingestion method before impl
 
 The server should track delivery state and use idempotency so retries cannot create duplicate CRM leads or email notifications. Send success only after accepted delivery or durable queueing. Use an honest retry state on failure. Do not rely on two uncoordinated browser requests for email and CRM.
 
-Replace the preview acknowledgment with approved live contact language. Separate any optional marketing permissions from an inquiry response. Replace the completion preview notice and FAQ with the actual response process and timing once confirmed.
+Replace the preview acknowledgment with approved live contact language. Separate any optional marketing permissions from an inquiry response. Replace the completion preview notice with the actual response process and timing once confirmed.
 
 ## Release steps
 

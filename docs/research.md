@@ -28,7 +28,7 @@ The five step format, progress indicator, optional exploratory answers, and pres
 
 The lead promise is about finding a home that fits the visitor's life. This is a relevance and emotional framing hypothesis: readers can picture their own next chapter without being told how they should live. Copy remains inclusive and does not steer buyers using demographic assumptions. Geographic choices describe areas only; no unsupported safety, school, appreciation, or investment claims are made.
 
-The page has one primary destination: the buyer brief. Secondary content answers likely questions and routes back to that same action. The first step asks for timing rather than contact information. Contact details come after preferences, with no fake success message or hidden submission.
+The page has one primary destination: the buyer brief. Following the design review, supporting website sections were removed to keep the page focused on a headline, a small VSL, and the questionnaire. The first step asks for timing rather than contact information. Contact details come after preferences, with no fake success message or hidden submission.
 
 ## Next phase experiments
 

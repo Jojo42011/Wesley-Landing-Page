@@ -4,9 +4,9 @@ A warm, editorial real estate landing page and interactive buyer brief for San A
 
 ## Current scope
 
-This is a working **visual and interaction preview**, as requested. It includes the complete landing page, a three chapter introduction in the main media slot, a five step buyer questionnaire, a personalized summary, privacy information, and responsive mobile layouts. There is no backend, email delivery, CRM connection, or analytics tracking. Form data stays in React memory and is cleared on refresh. Do not enter real personal information during review.
+This is a working **visual and interaction preview**, as requested. The compact page has one headline, one questionnaire action, and a small black VSL placeholder. The five step buyer questionnaire opens in a dialog and finishes with a personalized summary. There is no backend, email delivery, CRM connection, or analytics tracking. Form data stays in React memory and is cleared on refresh. Do not enter real personal information during review.
 
-The media slot is ready for Wesley's real video and English captions. It does not play an unrelated stock video or imply an unavailable agent introduction exists.
+The media slot is ready for the actual VSL and English captions. Until both are supplied, the black placeholder shows a play icon and an honest availability message when clicked. It is not a personal introduction to Wesley.
 
 ## Local development
 
@@ -34,9 +34,10 @@ npm run preview
 ## Editing
 
 - `src/App.tsx`: landing page sections and supporting copy.
-- `src/components/`: questionnaire, introduction, native dialog, and reusable controls.
+- `src/components/`: questionnaire, VSL, native dialog, and reusable controls.
 - `src/config.ts`: identity, media URLs, answer choices, and typed answer contract.
-- `src/styles.css`: design system and responsive layouts.
+- `src/landing.css`: compact page design and responsive layouts.
+- `src/funnel.css`: questionnaire and dialog styles.
 - `public/images/`: architectural inspiration photographs.
 - `docs/research.md`: research rationale, source links, and proposed experiments.
 - `docs/qa.md`: checks performed and release boundaries.
