@@ -23,14 +23,31 @@ export default function App() {
       <main id="main" className="landing-main container">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <h1 id="hero-title">Let’s find out what you’re looking for.</h1>
+            <h1 id="hero-title">
+              Find the right home in San Antonio without the guesswork.
+            </h1>
             <p>
-              A few simple questions. A clearer picture of your next home in San
-              Antonio.
+              Tell Wesley what matters most. He’ll focus your search around your
+              budget, timing, and favorite areas.
             </p>
-            <Action onClick={() => setModal("funnel")}>Find my home</Action>
           </div>
           <Vsl />
+          <Action onClick={() => setModal("funnel")} className="hero-action">
+            Get in touch
+          </Action>
+          <a
+            className="hero-proof"
+            href="https://www.har.com/realestatepro/sold-by-agent/sa-836365"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span className="proof-mark" aria-hidden="true">W</span>
+            <span>
+              <strong>See Wesley’s recent sales</strong>
+              <small>Buyer and seller transactions on HAR</small>
+            </span>
+            <ArrowUpRight size={16} strokeWidth={1.6} aria-hidden="true" />
+          </a>
         </section>
       </main>
       <footer className="footer container">

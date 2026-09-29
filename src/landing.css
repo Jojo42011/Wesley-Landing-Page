@@ -125,17 +125,18 @@ legend span {
 .brand-copy {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 5px;
 }
 .brand-copy strong {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2.2px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
 }
 .brand-copy > span {
-  font-size: 7.5px;
-  letter-spacing: 1.4px;
-  color: #6e766a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #263f35;
 }
 .header-location {
   font-size: 9px;
@@ -146,14 +147,20 @@ legend span {
   flex: 1;
   display: flex;
   align-items: center;
-  padding-block: 65px 100px;
+  padding-block: 28px 48px;
 }
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   align-items: center;
   width: 100%;
+}
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .eyebrow {
   display: block;
@@ -163,18 +170,18 @@ legend span {
   letter-spacing: 1.8px;
 }
 .hero h1 {
-  max-width: 650px;
+  max-width: 930px;
   font-family: "Manrope", sans-serif;
-  font-size: clamp(45px, 4.4vw, 64px);
+  font-size: clamp(43px, 4.3vw, 58px);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -2.8px;
-  margin: 0 0 28px;
+  margin: 0 0 17px;
 }
 .hero-copy > p {
-  font-size: 14px;
-  line-height: 1.9;
-  max-width: 355px;
+  font-size: 15px;
+  line-height: 1.75;
+  max-width: 585px;
   color: var(--muted);
 }
 .button {
@@ -204,14 +211,53 @@ legend span {
   border-color: #d8dbd0;
   transform: none;
 }
-.hero-copy > .button {
-  min-width: 215px;
-  margin-top: 29px;
+.hero-action {
+  width: min(100%, 470px);
+  font-size: 14px;
+  font-weight: 600;
+}
+.hero-proof {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(100%, 470px);
+  margin-top: -8px;
+  padding: 4px 8px;
+  color: var(--green);
+}
+.proof-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border: 1px solid #c4cbbd;
+  border-radius: 50%;
+  font-family: var(--serif);
+  font-size: 24px;
+}
+.hero-proof > span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.hero-proof strong {
+  font-size: 13px;
+  font-weight: 700;
+}
+.hero-proof small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.hero-proof > svg {
+  margin-left: auto;
+}
+.hero-proof:hover strong {
+  text-decoration: underline;
 }
 .vsl-block {
   width: 100%;
-  max-width: 430px;
-  justify-self: end;
+  max-width: 550px;
 }
 .vsl-screen {
   display: block;
@@ -357,10 +403,10 @@ legend span {
 }
 @media (max-width: 1050px) {
   .hero {
-    gap: 42px;
+    gap: 22px;
   }
   .hero h1 {
-    font-size: 50px;
+    font-size: 48px;
   }
   .footer-note {
     width: 100%;
@@ -393,22 +439,21 @@ legend span {
     gap: 5px;
   }
   .brand-copy strong {
-    font-size: 9.5px;
-    letter-spacing: 1.5px;
+    font-size: 11px;
+    letter-spacing: 1px;
   }
   .brand-copy > span {
-    font-size: 6px;
-    letter-spacing: 1px;
+    font-size: 9px;
+    letter-spacing: 0.6px;
   }
   .header-location {
     display: none;
   }
   .landing-main {
-    padding-block: 38px 45px;
+    padding-block: 30px 45px;
   }
   .hero {
-    grid-template-columns: 1fr;
-    gap: 34px;
+    gap: 22px;
     max-width: 500px;
     margin-inline: auto;
   }
@@ -416,19 +461,17 @@ legend span {
     font-size: clamp(37px, 10.5vw, 53px);
     line-height: 1.1;
     letter-spacing: -1.8px;
-    margin: 0 0 22px;
+    margin: 0 0 19px;
   }
   .hero-copy > p {
     font-size: 13px;
-    max-width: 330px;
+    max-width: 390px;
   }
-  .hero-copy > .button {
-    margin-top: 23px;
-    min-width: 205px;
+  .hero-action {
+    width: 100%;
   }
   .vsl-block {
-    justify-self: start;
-    max-width: 390px;
+    max-width: 500px;
   }
   .vsl-play {
     width: 50px;

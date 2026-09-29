@@ -2,6 +2,12 @@
 
 Researched September 20, 2026. These sources guide design decisions. They do not establish an optimal funnel or predict a conversion rate for this agent. Several findings come from general usability or ecommerce contexts; applying them to real estate lead generation is a design hypothesis to test with actual traffic.
 
+## September 29 copy revision
+
+[Acquisition.com's Offers checklist](https://www.acquisition.com/hubfs/Offer%20Checklists%20-%20PDF%20Downloads/Pricing-Value-Checklist.pdf?hsLang=en) frames value around a desired outcome, the likelihood of achieving it, time, and effort. [Alex Hormozi's Proof > Promise note](https://www.acquisition.com/mozi-money-minute/trade-time-for-money-0?hs_amp=true) argues that concrete proof on a sales page is more persuasive than an unsupported claim. The revised hero names the outcome of finding the right San Antonio home and the friction of guesswork. The short form makes the first action concrete. A visible link to [Wesley Dulin's recent sales on HAR](https://www.har.com/realestatepro/sold-by-agent/sa-836365) supplies independently viewable buyer and seller transaction evidence without inventing a lifetime sales count. A verified count or testimonial can replace this link treatment after Wesley confirms the claim.
+
+[Zillow's 2025 buyer survey](https://www.zillow.com/research/buyers-housing-trends-report-2025/) reports that contacting an agent was the first home buying task for 52% of surveyed buyers, and 60% described home buying as at least somewhat stressful. The revised copy therefore presents Wesley and a clearer search plan immediately. These sources guide the hypothesis; they do not prove this specific headline will convert best.
+
 ## First impressions and perceived quality
 
 [Nielsen Norman Group: First Impressions Matter](https://www.nngroup.com/articles/first-impressions-human-automaticity/) describes how immediate visual impressions influence perceptions of aesthetics, usability, and credibility. The implementation uses two type families, a restrained palette, consistent spacing, and a recognizable page hierarchy.
