@@ -96,6 +96,12 @@ legend span {
   width: min(1180px, calc(100% - 96px));
   margin-inline: auto;
 }
+@media (min-width: 761px) {
+  .site-header.container,
+  .footer.container {
+    width: calc(100% - 96px);
+  }
+}
 .landing {
   min-height: 100svh;
   display: flex;
