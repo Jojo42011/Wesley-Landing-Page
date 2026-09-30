@@ -337,20 +337,6 @@ export default function Funnel({
                         </select>
                       </label>
                     </div>
-                    <label className="consent">
-                      <input
-                        type="checkbox"
-                        checked={answers.consent}
-                        required
-                        onChange={(event) =>
-                          set("consent", event.target.checked)
-                        }
-                      />
-                      <span>
-                        I understand this is a preview and my details will not
-                        be sent. <span>(required)</span>
-                      </span>
-                    </label>
                   </div>
                 )}
                 <div className="form-navigation">
