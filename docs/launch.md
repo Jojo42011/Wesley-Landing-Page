@@ -4,7 +4,7 @@ The current build is intentionally a UI preview. Nothing is posted, emailed, or 
 
 ## Content inputs
 
-- Wesley's approved contact details, brokerage name, and verified license information.
+- Wesley's approved contact details and verified license information. Confirm that the Dulin Real Estate branding is approved by The Branch Real Estate.
 - Completed agent specific Information About Brokerage Services document.
 - Actual VSL and a WebVTT English caption file; configure both URLs in `src/config.ts`.
 - Approved headshot or local property photography if desired. Current images are explicitly inspiration.
@@ -16,7 +16,7 @@ The site currently links to the [TREC Consumer Protection Notice](https://www.tr
 
 Add a Vercel server function at `/api/leads`. The browser should send one validated payload to this endpoint. Keep all email and Brivity credentials in Vercel environment variables, never in client side `VITE_` variables or the repository.
 
-Use the exported `Answers` type as the starting contract, then validate it independently on the server. Check length limits, email format, allowed choice values, and affirmative live contact consent. Add abuse controls, origin checks, and rate limiting. Do not log contact details.
+Use the exported `Answers` type as the starting contract, then validate it independently on the server. Check length limits, email format, allowed choice values for the multiple choice steps, the free text location answer, and affirmative live contact consent. Add abuse controls, origin checks, and rate limiting. Do not log contact details.
 
 Confirm the actual Brivity account's supported lead ingestion method before implementing it. This repository does not assume or invent a Brivity API endpoint. The owner's account may support an API, integration, or lead routing email workflow; choose from verified account capabilities.
 

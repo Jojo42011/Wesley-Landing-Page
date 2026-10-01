@@ -32,6 +32,10 @@ input,
 select {
   -webkit-tap-highlight-color: transparent;
 }
+textarea {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
 button,
 a {
   touch-action: manipulation;
@@ -51,6 +55,10 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible {
+  outline: 2px solid #9e743c;
+  outline-offset: 5px;
+}
+textarea:focus-visible {
   outline: 2px solid #9e743c;
   outline-offset: 5px;
 }
@@ -81,7 +89,7 @@ fieldset {
   min-width: 0;
 }
 legend {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 12px;
 }
@@ -134,18 +142,18 @@ legend span {
   gap: 5px;
 }
 .brand-copy strong {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: 1.7px;
 }
 .brand-copy > span {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
   color: #263f35;
 }
 .header-location {
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 1.8px;
   color: #777e70;
 }
@@ -170,7 +178,7 @@ legend span {
 }
 .eyebrow {
   display: block;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.6;
   font-weight: 500;
   letter-spacing: 1.8px;
@@ -185,7 +193,7 @@ legend span {
   margin: 0 0 17px;
 }
 .hero-copy > p {
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.75;
   max-width: 585px;
   color: var(--muted);
@@ -198,7 +206,7 @@ legend span {
   border: 1px solid var(--green);
   background: var(--green);
   color: var(--cream);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 500;
   padding: 18px 23px;
   min-height: 54px;
@@ -219,7 +227,7 @@ legend span {
 }
 .hero-action {
   width: min(100%, 470px);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 .hero-proof {
@@ -230,6 +238,9 @@ legend span {
   margin-top: -8px;
   padding: 4px 8px;
   color: var(--green);
+  border: 0;
+  background: transparent;
+  text-align: left;
 }
 .proof-mark {
   display: grid;
@@ -248,11 +259,11 @@ legend span {
   gap: 3px;
 }
 .hero-proof strong {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
 }
 .hero-proof small {
-  font-size: 10px;
+  font-size: 13px;
   color: var(--muted);
 }
 .hero-proof > svg {
@@ -305,13 +316,13 @@ legend span {
   left: 15px;
   right: 15px;
   color: #b5b5b5;
-  font-size: 11px;
+  font-size: 14px;
   text-align: center;
 }
 .vsl-caption {
   display: block;
   text-align: center;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 1.7px;
   color: #83877c;
   margin-top: 16px;
@@ -324,7 +335,7 @@ legend span {
   justify-content: space-between;
   gap: 16px 25px;
   flex-wrap: wrap;
-  font-size: 9px;
+  font-size: 12px;
   color: #747b6d;
 }
 .footer-links {
@@ -332,6 +343,11 @@ legend span {
   align-items: center;
   gap: 22px;
   flex-wrap: wrap;
+}
+.footer-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .footer button {
   padding: 0;
@@ -344,7 +360,7 @@ legend span {
   text-decoration: underline;
 }
 .footer-note {
-  font-size: 8px;
+  font-size: 11px;
   color: #82887b;
 }
 .text-button {
@@ -356,7 +372,7 @@ legend span {
   border: 0;
   border-bottom: 1px solid #a8b399;
   background: transparent;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 .skip-link {
@@ -387,7 +403,7 @@ legend span {
 .step-description,
 .contact-fields > label,
 .field-pair > label {
-  font-size: 12px;
+  font-size: 15px;
 }
 .policy-content h2 {
   font-size: 45px;
@@ -395,16 +411,56 @@ legend span {
   margin: 22px 0;
 }
 .policy-content p {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.9;
   color: var(--muted);
 }
 .form-footnote {
-  font-size: 10px;
+  font-size: 12px;
 }
 .preview-note p,
 .brief > div {
-  font-size: 11px;
+  font-size: 13px;
+}
+.sales-content {
+  padding: 58px 45px 42px;
+}
+.sales-content h2 {
+  font-size: 42px;
+  line-height: 1.08;
+  margin: 15px 0;
+}
+.sales-content > p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.sales-list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 14px;
+}
+.sales-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  padding: 15px 0;
+  font-size: 14px;
+}
+.sales-list li > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sales-list strong {
+  font-size: 15px;
+}
+.sales-list span {
+  color: var(--muted);
+}
+.sale-meta {
+  text-align: right;
 }
 @media (max-width: 1050px) {
   .hero {
@@ -444,11 +500,11 @@ legend span {
     gap: 5px;
   }
   .brand-copy strong {
-    font-size: 11px;
+    font-size: 14px;
     letter-spacing: 1px;
   }
   .brand-copy > span {
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0.6px;
   }
   .header-location {
@@ -469,7 +525,7 @@ legend span {
     margin: 0 0 19px;
   }
   .hero-copy > p {
-    font-size: 13px;
+    font-size: 16px;
     max-width: 390px;
   }
   .hero-action {
@@ -483,11 +539,11 @@ legend span {
     height: 50px;
   }
   .vsl-caption {
-    font-size: 7px;
+    font-size: 10px;
     margin-top: 13px;
   }
   .footer {
-    font-size: 9px;
+    font-size: 12px;
     gap: 14px;
     padding-block: 20px;
   }
@@ -496,7 +552,7 @@ legend span {
     line-height: 1.7;
   }
   .footer-note {
-    font-size: 8px;
+    font-size: 11px;
   }
   .modal,
   .modal-wide {
@@ -516,7 +572,7 @@ legend span {
   .step-top {
     padding-right: 24px;
     margin-top: 12px;
-    font-size: 8px;
+    font-size: 11px;
   }
   .progress-track {
     margin-bottom: 27px;
@@ -526,23 +582,23 @@ legend span {
     max-width: 340px;
   }
   .step-description {
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 22px;
   }
   .choice {
     min-height: 47px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .form-navigation {
     gap: 8px;
   }
   .form-navigation .button {
     gap: 14px;
-    font-size: 12px;
+    font-size: 14px;
     padding: 14px;
   }
   .privacy-micro {
-    font-size: 8px;
+    font-size: 11px;
   }
   .close-button {
     width: 32px;
@@ -557,17 +613,27 @@ legend span {
     font-size: 40px;
   }
   .policy-content p {
-    font-size: 12px;
+    font-size: 14px;
   }
-  .contact-fields input:not([type="checkbox"]),
-  .contact-fields select {
+  .contact-fields input,
+  .contact-fields select,
+  .location-field textarea {
     font-size: 16px;
   }
   .completion h2 {
     font-size: 39px;
   }
   .completion > .eyebrow {
-    font-size: 8px;
+    font-size: 11px;
+  }
+  .sales-content {
+    padding: 52px 25px 30px;
+  }
+  .sales-content h2 {
+    font-size: 35px;
+  }
+  .sales-list li {
+    font-size: 12px;
   }
 }
 @media (max-width: 370px) {
@@ -584,7 +650,7 @@ legend span {
     padding-inline: 19px;
   }
   .form-navigation .button {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

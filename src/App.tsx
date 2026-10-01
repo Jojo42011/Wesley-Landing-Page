@@ -6,10 +6,43 @@ import Modal from "./components/Modal";
 import Vsl from "./components/Vsl";
 import Funnel from "./components/Funnel";
 
+const sales = [
+  {
+    address: "600 Leland",
+    city: "Kerrville",
+    role: "Seller",
+    date: "August 2026",
+  },
+  {
+    address: "7604 Forest Moon",
+    city: "Live Oak",
+    role: "Buyer",
+    date: "July 2026",
+  },
+  {
+    address: "3911 Valencia Peak",
+    city: "San Antonio",
+    role: "Seller",
+    date: "July 2026",
+  },
+  {
+    address: "320 Frontier Ln",
+    city: "Bandera",
+    role: "Seller",
+    date: "January 2026",
+  },
+  {
+    address: "207 Cherokee",
+    city: "Lakehills",
+    role: "Seller",
+    date: "December 2025",
+  },
+];
+
 export default function App() {
-  const [modal, setModal] = useState<"funnel" | "privacy" | "brokerage" | null>(
-    null,
-  );
+  const [modal, setModal] = useState<
+    "funnel" | "sales" | "privacy" | "brokerage" | null
+  >(null);
   const [answers, setAnswers] = useState<Answers>({ ...emptyAnswers });
   return (
     <div className="landing" id="home">
@@ -35,23 +68,27 @@ export default function App() {
           <Action onClick={() => setModal("funnel")} className="hero-action">
             Get in touch
           </Action>
-          <a
+          <button
             className="hero-proof"
-            href="https://www.har.com/realestatepro/sold-by-agent/sa-836365"
-            target="_blank"
-            rel="noopener noreferrer"
+            type="button"
+            onClick={() => setModal("sales")}
           >
-            <span className="proof-mark" aria-hidden="true">W</span>
+            <span className="proof-mark" aria-hidden="true">
+              W
+            </span>
             <span>
               <strong>See Wesley’s recent sales</strong>
-              <small>Buyer and seller transactions on HAR</small>
+              <small>View recent transactions here</small>
             </span>
             <ArrowUpRight size={16} strokeWidth={1.6} aria-hidden="true" />
-          </a>
+          </button>
         </section>
       </main>
       <footer className="footer container">
-        <span>© {new Date().getFullYear()} Wesley Dulin</span>
+        <span className="footer-identity">
+          © {new Date().getFullYear()} Wesley Dulin
+          <span>Brokerage: The Branch Real Estate</span>
+        </span>
         <div className="footer-links">
           <button onClick={() => setModal("privacy")}>Privacy</button>
           <button onClick={() => setModal("brokerage")}>
@@ -75,6 +112,40 @@ export default function App() {
           answers={answers}
           setAnswers={setAnswers}
         />
+      )}
+      {modal === "sales" && (
+        <Modal label="Wesley’s recent sales" onClose={() => setModal(null)}>
+          <div className="sales-content">
+            <span className="eyebrow">RECENT TRANSACTIONS</span>
+            <h2>Experience you can see.</h2>
+            <p>
+              A selection of Wesley’s buyer and seller transactions listed on
+              HAR. Details were checked in September 2026.
+            </p>
+            <ul className="sales-list">
+              {sales.map((sale) => (
+                <li key={sale.address}>
+                  <div>
+                    <strong>{sale.address}</strong>
+                    <span>{sale.city}, Texas</span>
+                  </div>
+                  <div className="sale-meta">
+                    <span>Represented {sale.role.toLowerCase()}</span>
+                    <span>{sale.date}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <a
+              className="text-button"
+              href="https://www.har.com/realestatepro/sold-by-agent/sa-836365"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Verify these sales on HAR <ArrowUpRight size={17} />
+            </a>
+          </div>
+        </Modal>
       )}
       {modal === "privacy" && (
         <Modal label="Privacy" onClose={() => setModal(null)}>
@@ -106,10 +177,10 @@ export default function App() {
             <span className="eyebrow">BROKERAGE INFORMATION</span>
             <h2>The details matter.</h2>
             <p>
-              This is a design preview for Wesley Dulin. Brokerage details,
-              verified license information, and the completed Information About
-              Brokerage Services notice will be added before the site begins
-              accepting inquiries.
+              Wesley Dulin is affiliated with The Branch Real Estate. Verified
+              license information and the completed Information About Brokerage
+              Services notice will be added before the site begins accepting
+              inquiries.
             </p>
             <a
               className="text-button"

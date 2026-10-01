@@ -5,11 +5,11 @@ export function Brand({ light = false }: { light?: boolean }) {
     <a
       className={`brand ${light ? "brand-light" : ""}`}
       href="#home"
-      aria-label="Branch Real Estate, Wesley Dulin"
+      aria-label="Dulin Real Estate, Wesley Dulin"
     >
-      <span className="monogram">B</span>
+      <span className="monogram">D</span>
       <span className="brand-copy">
-        <strong>BRANCH REAL ESTATE</strong>
+        <strong>DULIN REAL ESTATE</strong>
         <span>WESLEY DULIN · REALTOR</span>
       </span>
     </a>

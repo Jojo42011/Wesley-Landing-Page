@@ -8,6 +8,8 @@ This is a working **visual and interaction preview**, as requested. The compact 
 
 The media slot is ready for the actual VSL and English captions. Until both are supplied, the black placeholder shows a play icon and an honest availability message when clicked. It is not a personal introduction to Wesley.
 
+The recent sales dialog shows a static selection from Wesley's [HAR sales page](https://www.har.com/realestatepro/sold-by-agent/sa-836365), checked in September 2026. Refresh the entries and date when the source changes.
+
 ## Local development
 
 Use Node 22 LTS or a newer supported LTS release.

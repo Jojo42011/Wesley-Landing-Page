@@ -8,7 +8,6 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import {
-  areas,
   timelines,
   budgets,
   financing,
@@ -59,9 +58,9 @@ const stepCopy = [
     "A clear plan starts with your pace. Exploring is welcome, too.",
   ],
   [
-    "YOUR NEIGHBORHOOD",
+    "YOUR LOCATION",
     "Where do you feel drawn to?",
-    "Choose a starting point. There is plenty of room to explore.",
+    "Tell us a city, area, school, or ISD. You can name more than one.",
   ],
   [
     "YOUR COMFORT ZONE",
@@ -99,7 +98,7 @@ export default function Funnel({
   }, [step, complete]);
   const valid = [
     Boolean(answers.timeline),
-    Boolean(answers.area),
+    Boolean(answers.area.trim()),
     Boolean(answers.budget),
     Boolean(answers.financing && answers.representation),
     true,
@@ -127,7 +126,7 @@ export default function Funnel({
             <p>Let’s find a starting point that feels like you.</p>
           </div>
           <span className="aside-bottom">
-            <MapPin size={14} /> San Antonio & the surrounding Hill Country
+            <MapPin size={16} /> Texas real estate
           </span>
         </aside>
         <div className="funnel-main">
@@ -148,7 +147,7 @@ export default function Funnel({
               <dl className="brief">
                 <div>
                   <dt>Where</dt>
-                  <dd>{answers.area}</dd>
+                  <dd>{answers.area.trim()}</dd>
                 </div>
                 <div>
                   <dt>When</dt>
@@ -231,17 +230,18 @@ export default function Funnel({
                   </fieldset>
                 )}
                 {step === 1 && (
-                  <fieldset>
-                    <legend className="sr-only">
-                      Preferred area, required
-                    </legend>
-                    <Choices
+                  <label className="location-field">
+                    City, area, school, or ISD <span>(required)</span>
+                    <textarea
                       name="area"
-                      options={areas}
                       value={answers.area}
-                      onChange={(value) => set("area", value)}
+                      onChange={(event) => set("area", event.target.value)}
+                      placeholder="Tell us where you would like to live"
+                      maxLength={160}
+                      rows={4}
+                      required
                     />
-                  </fieldset>
+                  </label>
                 )}
                 {step === 2 && (
                   <fieldset>

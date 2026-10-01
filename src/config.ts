@@ -6,18 +6,10 @@ export const site = {
   // Supply an MP4/WebM URL and a WebVTT caption track together to enable the VSL.
   videoUrl: "",
   captionsUrl: "",
-  brokerage: "",
+  brokerage: "The Branch Real Estate",
   iabsUrl: "",
 };
 
-export const areas = [
-  "San Antonio",
-  "Stone Oak",
-  "Boerne",
-  "Alamo Heights",
-  "New Braunfels",
-  "Still exploring",
-];
 export const timelines = [
   "As soon as possible",
   "In the next 3 months",
@@ -53,7 +45,6 @@ export type Answers = {
   email: string;
   phone: string;
   time: string;
-  consent: boolean;
 };
 export const emptyAnswers: Answers = {
   timeline: "",
@@ -65,5 +56,4 @@ export const emptyAnswers: Answers = {
   email: "",
   phone: "",
   time: "",
-  consent: false,
 };
