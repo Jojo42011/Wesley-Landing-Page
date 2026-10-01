@@ -12,7 +12,7 @@ export default function Vsl() {
           controls
           playsInline
           preload="none"
-          aria-label="Home buying video"
+          aria-label="Wesley Dulin real estate video"
         >
           <source src={site.videoUrl} />
           <track

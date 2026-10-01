@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ShieldCheck, House } from "lucide-react";
-import { emptyAnswers, type Answers } from "./config";
+import { emptyAnswers, site, type Answers } from "./config";
 import { Brand, Action } from "./components/Controls";
 import Modal from "./components/Modal";
 import Vsl from "./components/Vsl";
@@ -44,6 +44,18 @@ export default function App() {
     "funnel" | "sales" | "privacy" | "brokerage" | null
   >(null);
   const [answers, setAnswers] = useState<Answers>({ ...emptyAnswers });
+  const heroActionRef = useRef<HTMLDivElement>(null);
+  const [showMobileAction, setShowMobileAction] = useState(true);
+
+  useEffect(() => {
+    const node = heroActionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setShowMobileAction(!entry.isIntersecting);
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
   return (
     <div className="landing" id="home">
       <a className="skip-link" href="#main">
@@ -57,17 +69,23 @@ export default function App() {
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">
-              Find the right home in San Antonio without the guesswork.
+              Your next move deserves a plan that fits you.
             </h1>
             <p>
-              Tell Wesley what matters most. He’ll focus your search around your
-              budget, timing, and favorite areas.
+              Share what you are looking for in San Antonio or the Hill Country.
+              Wesley can use your home brief to focus the conversation around
+              your goals, budget, and timing.
             </p>
+            <span className="hero-evidence">
+              5 recent sales listed on HAR · Buyer and seller representation
+            </span>
           </div>
           <Vsl />
-          <Action onClick={() => setModal("funnel")} className="hero-action">
-            Get in touch
-          </Action>
+          <div className="hero-action-wrap" ref={heroActionRef}>
+            <Action onClick={() => setModal("funnel")} className="hero-action">
+              Build my home brief
+            </Action>
+          </div>
           <button
             className="hero-proof"
             type="button"
@@ -83,17 +101,100 @@ export default function App() {
             <ArrowUpRight size={16} strokeWidth={1.6} aria-hidden="true" />
           </button>
         </section>
+        <section className="below-hero" aria-label="How it works">
+          <div className="steps-intro">
+            <span className="eyebrow">A SIMPLE PLACE TO START</span>
+            <h2>Share the details. See the plan.</h2>
+          </div>
+          <div className="simple-steps">
+            <div>
+              <span>01</span>
+              <h3>Tell us your plans</h3>
+              <p>Buying, selling, or still exploring are all welcome.</p>
+            </div>
+            <div>
+              <span>02</span>
+              <h3>Make it yours</h3>
+              <p>Choose what fits and write in anything the options miss.</p>
+            </div>
+            <div>
+              <span>03</span>
+              <h3>Review your brief</h3>
+              <p>See your priorities together before the next conversation.</p>
+            </div>
+          </div>
+          <details className="faq">
+            <summary>Does it cost anything to use a buyer’s agent?</summary>
+            <p>
+              Agent compensation is negotiable and depends on your agreement.
+              Before touring homes with an agent, review a written buyer
+              agreement that explains the services and how the agent would be
+              paid. Wesley can talk through the options with you.
+            </p>
+          </details>
+          <details className="faq">
+            <summary>What if I am just exploring?</summary>
+            <p>
+              That is fine. Share where you are now, and use the brief to sort
+              through your next steps at your own pace.
+            </p>
+          </details>
+          <div className="secondary-actions">
+            <Action onClick={() => setModal("funnel")}>
+              Build my home brief
+            </Action>
+            <a
+              href={site.listingsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Search The Branch listings <ArrowUpRight size={16} />
+            </a>
+            {site.newConstructionUrl && (
+              <a
+                href={site.newConstructionUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Explore new construction <ArrowUpRight size={16} />
+              </a>
+            )}
+          </div>
+        </section>
       </main>
+      {modal === null && showMobileAction && (
+        <div className="mobile-action">
+          <Action onClick={() => setModal("funnel")}>
+            Build my home brief
+          </Action>
+        </div>
+      )}
       <footer className="footer container">
         <span className="footer-identity">
           © {new Date().getFullYear()} Wesley Dulin
-          <span>Brokerage: The Branch Real Estate</span>
+          <span>Brokerage: {site.brokerage}</span>
         </span>
         <div className="footer-links">
           <button onClick={() => setModal("privacy")}>Privacy</button>
-          <button onClick={() => setModal("brokerage")}>
-            Brokerage information
-          </button>
+          {site.iabsUrl ? (
+            <a href={site.iabsUrl} target="_blank" rel="noopener noreferrer">
+              TREC Information About Brokerage Services
+            </a>
+          ) : (
+            <button onClick={() => setModal("brokerage")}>
+              Brokerage information
+            </button>
+          )}
+          {site.socialLinks.map((link) => (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.label}
+            </a>
+          ))}
           <a
             href="https://www.trec.texas.gov/forms/consumer-protection-notice"
             target="_blank"
@@ -177,10 +278,10 @@ export default function App() {
             <span className="eyebrow">BROKERAGE INFORMATION</span>
             <h2>The details matter.</h2>
             <p>
-              Wesley Dulin is affiliated with The Branch Real Estate. Verified
-              license information and the completed Information About Brokerage
-              Services notice will be added before the site begins accepting
-              inquiries.
+              Wesley Dulin is affiliated with The Branch Real Estate Group Inc.
+              Verified license information and the completed Information About
+              Brokerage Services notice will be added before the site begins
+              accepting inquiries.
             </p>
             <a
               className="text-button"

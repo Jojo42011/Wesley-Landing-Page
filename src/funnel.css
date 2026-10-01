@@ -207,6 +207,12 @@
 .location-field textarea::placeholder {
   color: #929787;
 }
+.other-field {
+  margin-top: 18px;
+}
+.other-field textarea {
+  min-height: 92px;
+}
 .selected .choice-check {
   background: var(--green);
   color: #fff;
@@ -268,7 +274,7 @@
   font-weight: 400;
   color: #707b65;
 }
-.contact-fields input,
+.contact-fields input:not([type="checkbox"]),
 .contact-fields select {
   display: block;
   width: 100%;
@@ -280,6 +286,28 @@
   font-size: 16px;
   padding: 12px;
   margin-top: 8px;
+}
+.contact-fields > .contact-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  line-height: 1.6;
+  font-size: 12px;
+  font-weight: 400;
+}
+.contact-consent input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--green);
+}
+.contact-fields .contact-consent span {
+  color: var(--ink);
+  font-weight: 400;
+}
+.completion-calendar {
+  margin-bottom: 12px;
 }
 .contact-fields input::placeholder {
   color: #929787;

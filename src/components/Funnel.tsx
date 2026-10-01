@@ -1,83 +1,138 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
-  ArrowUpRight,
-  ArrowRight,
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type FormEvent,
+  type SetStateAction,
+} from "react";
+import {
   ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
   Check,
   MapPin,
   ShieldCheck,
 } from "lucide-react";
 import {
-  timelines,
   budgets,
   financing,
+  intents,
   representation,
+  site,
+  timelines,
   type Answers,
 } from "../config";
 import Modal from "./Modal";
-function Choices({
-  options,
-  value,
-  onChange,
-  name,
-}: {
-  options: string[];
-  value: string;
-  onChange: (value: string) => void;
-  name: string;
-}) {
-  return (
-    <div className="choices">
-      {options.map((option) => (
-        <label
-          className={`choice ${value === option ? "selected" : ""}`}
-          key={option}
-        >
-          <input
-            type="radio"
-            name={name}
-            value={option}
-            checked={value === option}
-            onChange={() => onChange(option)}
-            required
-          />
-          <span>{option}</span>
-          <span className="choice-check" aria-hidden="true">
-            {value === option && <Check size={13} />}
-          </span>
-        </label>
-      ))}
-    </div>
-  );
+
+type ChoiceKey =
+  "intent" | "budget" | "financing" | "representation" | "timeline";
+type OtherKey =
+  | "intentOther"
+  | "budgetOther"
+  | "financingOther"
+  | "representationOther"
+  | "timelineOther";
+
+const steps = [
+  {
+    eyebrow: "YOUR PLANS",
+    title: "What brings you here?",
+    description: "Start with what is on your mind today.",
+  },
+  {
+    eyebrow: "YOUR LOCATION",
+    title: "Where are you looking?",
+    description:
+      "A city, neighborhood, school, or ISD is a good starting point.",
+  },
+  {
+    eyebrow: "YOUR COMFORT ZONE",
+    title: "What budget feels right?",
+    description: "Choose a range that feels comfortable for you.",
+  },
+  {
+    eyebrow: "YOUR STARTING POINT",
+    title: "Where are you with financing?",
+    description:
+      "Whatever stage you are in, Wesley can understand the next step.",
+  },
+  {
+    eyebrow: "YOUR REPRESENTATION",
+    title: "Are you working with an agent?",
+    description: "This helps Wesley respect any relationship you already have.",
+  },
+  {
+    eyebrow: "YOUR TIMING",
+    title: "When are you hoping to move?",
+    description: "Your timing can be definite or still taking shape.",
+  },
+  {
+    eyebrow: "YOUR DETAILS",
+    title: "How can Wesley reach you?",
+    description: "Add your details to finish your home brief.",
+  },
+];
+
+function display(value: string, other: string) {
+  return value === "Other" ? other.trim() : value;
 }
 
-const stepCopy = [
-  [
-    "YOUR TIMING",
-    "When does your next chapter begin?",
-    "A clear plan starts with your pace. Exploring is welcome, too.",
-  ],
-  [
-    "YOUR LOCATION",
-    "Where do you feel drawn to?",
-    "Tell us a city, area, school, or ISD. You can name more than one.",
-  ],
-  [
-    "YOUR COMFORT ZONE",
-    "What budget feels right?",
-    "Think about a range that feels comfortable for you.",
-  ],
-  [
-    "YOUR STARTING POINT",
-    "Where are you in the process?",
-    "A little context helps make the next conversation more useful.",
-  ],
-  [
-    "YOUR NEXT STEP",
-    "Let’s make it personal.",
-    "Add your details to see how your home brief comes together.",
-  ],
-];
+function Choices({
+  name,
+  options,
+  value,
+  otherValue,
+  onChoose,
+  onOther,
+}: {
+  name: ChoiceKey;
+  options: string[];
+  value: string;
+  otherValue: string;
+  onChoose: (value: string) => void;
+  onOther: (value: string) => void;
+}) {
+  return (
+    <fieldset>
+      <legend className="sr-only">Choose one answer</legend>
+      <div className="choices">
+        {options.map((option) => (
+          <label
+            className={`choice ${value === option ? "selected" : ""}`}
+            key={option}
+          >
+            <input
+              type="radio"
+              name={name}
+              value={option}
+              checked={value === option}
+              onChange={() => onChoose(option)}
+            />
+            <span>{option}</span>
+            <span className="choice-check" aria-hidden="true">
+              {value === option && <Check size={16} />}
+            </span>
+          </label>
+        ))}
+      </div>
+      {value === "Other" && (
+        <label className="location-field other-field">
+          Tell us more <span>(required)</span>
+          <textarea
+            name={`${name}Other`}
+            value={otherValue}
+            onChange={(event) => onOther(event.target.value)}
+            placeholder="Tell Wesley what fits your situation"
+            maxLength={160}
+            rows={3}
+            required
+          />
+        </label>
+      )}
+    </fieldset>
+  );
+}
 
 export default function Funnel({
   onClose,
@@ -86,29 +141,91 @@ export default function Funnel({
 }: {
   onClose: () => void;
   answers: Answers;
-  setAnswers: (answers: Answers) => void;
+  setAnswers: Dispatch<SetStateAction<Answers>>;
 }) {
   const [step, setStep] = useState(0);
   const [complete, setComplete] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
+
   const set = <K extends keyof Answers>(key: K, value: Answers[K]) =>
-    setAnswers({ ...answers, [key]: value });
+    setAnswers((previous) => ({ ...previous, [key]: value }));
+
   useEffect(() => {
     heading.current?.focus();
   }, [step, complete]);
+
   const valid = [
-    Boolean(answers.timeline),
+    Boolean(
+      answers.intent &&
+      (answers.intent !== "Other" || answers.intentOther.trim()),
+    ),
     Boolean(answers.area.trim()),
-    Boolean(answers.budget),
-    Boolean(answers.financing && answers.representation),
-    true,
+    Boolean(
+      answers.budget &&
+      (answers.budget !== "Other" || answers.budgetOther.trim()),
+    ),
+    Boolean(
+      answers.financing &&
+      (answers.financing !== "Other" || answers.financingOther.trim()),
+    ),
+    Boolean(
+      answers.representation &&
+      (answers.representation !== "Other" ||
+        answers.representationOther.trim()),
+    ),
+    Boolean(
+      answers.timeline &&
+      (answers.timeline !== "Other" || answers.timelineOther.trim()),
+    ),
+    Boolean(
+      answers.name.trim() &&
+      answers.email.trim() &&
+      answers.phone.replace(/\D/g, "").length >= 10 &&
+      answers.phone.replace(/\D/g, "").length <= 15 &&
+      answers.contactConsent,
+    ),
   ][step];
+
+  function choose(key: ChoiceKey, value: string) {
+    set(key, value);
+    if (value !== "Other") setStep((current) => current + 1);
+  }
+
+  function choiceStep(key: ChoiceKey, otherKey: OtherKey, options: string[]) {
+    return (
+      <Choices
+        name={key}
+        options={options}
+        value={answers[key]}
+        otherValue={answers[otherKey]}
+        onChoose={(value) => choose(key, value)}
+        onOther={(value) => set(otherKey, value)}
+      />
+    );
+  }
+
   function next(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!valid) return;
-    if (step === 4) setComplete(true);
+    if (step === steps.length - 1) setComplete(true);
     else setStep(step + 1);
   }
+
+  const locationTitle =
+    answers.intent === intents[1]
+      ? "Where is the property?"
+      : answers.intent === intents[2]
+        ? "Where are you buying or selling?"
+        : steps[1].title;
+  const budgetTitle =
+    answers.intent === intents[1]
+      ? "What price range are you considering?"
+      : steps[2].title;
+  const financingDescription =
+    answers.intent === intents[1]
+      ? "If you are only selling, choose Not applicable yet."
+      : steps[3].description;
+
   return (
     <Modal label="Your home brief" onClose={onClose} wide>
       <div className="funnel-layout">
@@ -117,16 +234,17 @@ export default function Funnel({
             W<span>.</span>
           </span>
           <div>
-            <span className="eyebrow">HOME IS MORE THAN A PLACE</span>
+            <span className="eyebrow">LOCAL KNOWLEDGE, PERSONAL PLAN</span>
             <h2>
-              It’s where your
-              <br />
-              <em>life unfolds.</em>
+              Good moves start with <em>a conversation.</em>
             </h2>
-            <p>Let’s find a starting point that feels like you.</p>
+            <p>
+              Tell Wesley what matters to you. He serves Boerne, San Antonio,
+              and the Hill Country.
+            </p>
           </div>
           <span className="aside-bottom">
-            <MapPin size={16} /> Texas real estate
+            <MapPin size={16} /> Boerne · San Antonio · Hill Country
           </span>
         </aside>
         <div className="funnel-main">
@@ -135,56 +253,73 @@ export default function Funnel({
               <span className="success-icon">
                 <Check />
               </span>
-              <span className="eyebrow">A LITTLE MORE CLARITY</span>
+              <span className="eyebrow">YOUR HOME BRIEF</span>
               <h2 ref={heading} tabIndex={-1}>
-                Your next chapter,
-                <br />
-                <em>taking shape.</em>
+                A clearer place to start.
               </h2>
               <p>
-                Here is your home brief, {answers.name.trim().split(" ")[0]}.
+                Here is what you shared, {answers.name.trim().split(" ")[0]}.
               </p>
               <dl className="brief">
                 <div>
-                  <dt>Where</dt>
+                  <dt>Plans</dt>
+                  <dd>{display(answers.intent, answers.intentOther)}</dd>
+                </div>
+                <div>
+                  <dt>Location</dt>
                   <dd>{answers.area.trim()}</dd>
                 </div>
                 <div>
-                  <dt>When</dt>
-                  <dd>{answers.timeline}</dd>
-                </div>
-                <div>
                   <dt>Budget</dt>
-                  <dd>{answers.budget}</dd>
+                  <dd>{display(answers.budget, answers.budgetOther)}</dd>
                 </div>
                 <div>
                   <dt>Financing</dt>
-                  <dd>{answers.financing}</dd>
+                  <dd>{display(answers.financing, answers.financingOther)}</dd>
                 </div>
                 <div>
-                  <dt>Representation</dt>
-                  <dd>{answers.representation}</dd>
+                  <dt>Agent</dt>
+                  <dd>
+                    {display(
+                      answers.representation,
+                      answers.representationOther,
+                    )}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Timing</dt>
+                  <dd>{display(answers.timeline, answers.timelineOther)}</dd>
                 </div>
               </dl>
               {answers.representation === representation[1] && (
                 <p className="small-note">
-                  Already represented? Keep working with your agent. This brief
-                  can help you clarify your preferences together.
+                  Already represented? Continue working with your agent. This
+                  brief can help clarify your preferences together.
                 </p>
               )}
               <div className="preview-note">
-                <ShieldCheck size={19} />
+                <ShieldCheck size={20} />
                 <p>
-                  <strong>This is an experience preview.</strong> Your
-                  information has not been sent or saved. Email and CRM delivery
-                  will be connected later.
+                  <strong>This is a design preview.</strong> Your information
+                  has not been sent or saved. Lead delivery and calendar booking
+                  will be connected before launch.
                 </p>
               </div>
+              {site.calendarUrl && (
+                <a
+                  className="button completion-calendar"
+                  href={site.calendarUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Book a time with Wesley <ArrowUpRight size={18} />
+                </a>
+              )}
               <button
                 className="button"
                 onClick={() => {
                   setComplete(false);
-                  setStep(4);
+                  setStep(steps.length - 1);
                 }}
               >
                 <ArrowLeft size={17} /> Review my details
@@ -199,36 +334,35 @@ export default function Funnel({
                 <span>YOUR HOME BRIEF</span>
                 <span>
                   {String(step + 1).padStart(2, "0")}{" "}
-                  <span className="muted">/ 05</span>
+                  <span className="muted">
+                    / {String(steps.length).padStart(2, "0")}
+                  </span>
                 </span>
               </div>
               <div
                 className="progress-track"
-                aria-label={`Step ${step + 1} of 5`}
+                aria-label={`Step ${step + 1} of ${steps.length}`}
               >
-                {stepCopy.map((_, index) => (
-                  <span key={index} className={index <= step ? "filled" : ""} />
+                {steps.map((item, index) => (
+                  <span
+                    key={item.eyebrow}
+                    className={index <= step ? "filled" : ""}
+                  />
                 ))}
               </div>
               <form onSubmit={next}>
-                <span className="eyebrow">{stepCopy[step][0]}</span>
+                <span className="eyebrow">{steps[step].eyebrow}</span>
                 <h2 ref={heading} tabIndex={-1}>
-                  {stepCopy[step][1]}
+                  {step === 1
+                    ? locationTitle
+                    : step === 2
+                      ? budgetTitle
+                      : steps[step].title}
                 </h2>
-                <p className="step-description">{stepCopy[step][2]}</p>
-                {step === 0 && (
-                  <fieldset>
-                    <legend className="sr-only">
-                      Moving timeline, required
-                    </legend>
-                    <Choices
-                      name="timeline"
-                      options={timelines}
-                      value={answers.timeline}
-                      onChange={(value) => set("timeline", value)}
-                    />
-                  </fieldset>
-                )}
+                <p className="step-description">
+                  {step === 3 ? financingDescription : steps[step].description}
+                </p>
+                {step === 0 && choiceStep("intent", "intentOther", intents)}
                 {step === 1 && (
                   <label className="location-field">
                     City, area, school, or ISD <span>(required)</span>
@@ -236,51 +370,25 @@ export default function Funnel({
                       name="area"
                       value={answers.area}
                       onChange={(event) => set("area", event.target.value)}
-                      placeholder="Tell us where you would like to live"
+                      placeholder="Tell us where you have in mind"
                       maxLength={160}
                       rows={4}
                       required
                     />
                   </label>
                 )}
-                {step === 2 && (
-                  <fieldset>
-                    <legend className="sr-only">Budget, required</legend>
-                    <Choices
-                      name="budget"
-                      options={budgets}
-                      value={answers.budget}
-                      onChange={(value) => set("budget", value)}
-                    />
-                  </fieldset>
-                )}
-                {step === 3 && (
-                  <>
-                    <fieldset>
-                      <legend>
-                        Financing <span>(required)</span>
-                      </legend>
-                      <Choices
-                        name="financing"
-                        options={financing}
-                        value={answers.financing}
-                        onChange={(value) => set("financing", value)}
-                      />
-                    </fieldset>
-                    <fieldset className="representation">
-                      <legend>
-                        Are you working with an agent? <span>(required)</span>
-                      </legend>
-                      <Choices
-                        name="representation"
-                        options={representation}
-                        value={answers.representation}
-                        onChange={(value) => set("representation", value)}
-                      />
-                    </fieldset>
-                  </>
-                )}
-                {step === 4 && (
+                {step === 2 && choiceStep("budget", "budgetOther", budgets)}
+                {step === 3 &&
+                  choiceStep("financing", "financingOther", financing)}
+                {step === 4 &&
+                  choiceStep(
+                    "representation",
+                    "representationOther",
+                    representation,
+                  )}
+                {step === 5 &&
+                  choiceStep("timeline", "timelineOther", timelines)}
+                {step === 6 && (
                   <div className="contact-fields">
                     <label>
                       Full name <span>(required)</span>
@@ -310,13 +418,14 @@ export default function Funnel({
                     </label>
                     <div className="field-pair">
                       <label>
-                        Phone <span>(optional)</span>
+                        Phone <span>(required)</span>
                         <input
                           name="phone"
                           autoComplete="tel"
                           type="tel"
                           value={answers.phone}
                           onChange={(event) => set("phone", event.target.value)}
+                          required
                           maxLength={24}
                           pattern="[+\(\)0-9 .\-]{7,24}"
                           placeholder="Your phone number"
@@ -337,6 +446,21 @@ export default function Funnel({
                         </select>
                       </label>
                     </div>
+                    <label className="contact-consent">
+                      <input
+                        type="checkbox"
+                        checked={answers.contactConsent}
+                        onChange={(event) =>
+                          set("contactConsent", event.target.checked)
+                        }
+                        required
+                      />
+                      <span>
+                        I agree that Wesley Dulin and The Branch Real Estate
+                        Group Inc. may call or text me about my inquiry. Message
+                        and data rates may apply.
+                      </span>
+                    </label>
                   </div>
                 )}
                 <div className="form-navigation">
@@ -350,16 +474,18 @@ export default function Funnel({
                     </button>
                   ) : (
                     <span className="privacy-micro">
-                      <ShieldCheck size={14} /> Your pace. Your choice.
+                      <ShieldCheck size={16} /> Your pace. Your choice.
                     </span>
                   )}
                   <button className="button" type="submit" disabled={!valid}>
-                    {step === 4 ? "Preview my home brief" : "Continue"}
+                    {step === steps.length - 1
+                      ? "Preview my home brief"
+                      : "Continue"}
                     <ArrowRight size={17} />
                   </button>
                 </div>
                 <p className="form-footnote">
-                  {step === 4
+                  {step === steps.length - 1
                     ? "Preview only. Nothing is submitted or stored."
                     : "No obligation. Just a thoughtful place to start."}
                 </p>

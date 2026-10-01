@@ -1,10 +1,10 @@
 # Wesley Dulin
 
-A warm, editorial real estate landing page and interactive buyer brief for San Antonio. React, TypeScript, and Vite. Ready to import into Vercel.
+A warm, editorial real estate landing page and interactive home brief for San Antonio and the Hill Country. React, TypeScript, and Vite. Ready to import into Vercel.
 
 ## Current scope
 
-This is a working **visual and interaction preview**, as requested. The compact page has one headline, one questionnaire action, and a small black VSL placeholder. The five step buyer questionnaire opens in a dialog and finishes with a personalized summary. There is no backend, email delivery, CRM connection, or analytics tracking. Form data stays in React memory and is cleared on refresh. Do not enter real personal information during review.
+This is a working **visual and interaction preview**. The seven step questionnaire opens in a dialog and finishes with a personalized summary. Choices start blank, advance on selection, and provide a typed Other path. The location answer is free text. There is no backend, email delivery, CRM connection, or analytics tracking. Form data stays in React memory and is cleared on refresh. Do not enter real personal information during review.
 
 The media slot is ready for the actual VSL and English captions. Until both are supplied, the black placeholder shows a play icon and an honest availability message when clicked. It is not a personal introduction to Wesley.
 
@@ -49,6 +49,6 @@ Customer facing prose contains no hyphens, en dashes, or em dashes. Technical id
 
 ## Design
 
-Ivory, deep forest green, muted sage, restrained brass accents, Cormorant Garamond headings, and Manrope body copy. The brand mark uses typography rather than an invented credential or affiliation. A single main action leads into the home brief. There are no fabricated reviews, sale counts, awards, scarcity claims, or conversion guarantees.
+Ivory, deep forest green, muted sage, restrained brass accents, Cormorant Garamond headings, and Manrope body copy. The brand mark uses typography rather than an invented credential or affiliation. The main action leads into the home brief. The visible count of five recent sales comes from the HAR source checked in September 2026. There are no fabricated reviews, awards, scarcity claims, or conversion guarantees.
 
 All agent copy is draft marketing copy for Wesley to approve before launch. Photos are inspiration, not Wesley's listings or verified local properties. See `docs/credits.md`.

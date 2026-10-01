@@ -4,13 +4,16 @@ The current build is intentionally a UI preview. Nothing is posted, emailed, or 
 
 ## Content inputs
 
-- Wesley's approved contact details and verified license information. Confirm that the Dulin Real Estate branding is approved by The Branch Real Estate.
-- Completed agent specific Information About Brokerage Services document.
-- Actual VSL and a WebVTT English caption file; configure both URLs in `src/config.ts`.
-- Approved headshot or local property photography if desired. Current images are explicitly inspiration.
-- Final approval of draft first person copy.
+- Wesley's approved contact details, verified license information, and confirmation from Shawn that Dulin Real Estate is an approved advertising name. The verified brokerage name is The Branch Real Estate Group Inc.
+- Wesley's completed agent specific Information About Brokerage Services document. Add its URL to `src/config.ts` and render the exact required homepage link text at the required size.
+- Actual VSL and an English caption file; configure both URLs in `src/config.ts`.
+- Approved headshot and genuine local photography. Current image is only inspiration.
+- Wesley's calendar booking URL, social profile URLs, and a dedicated new construction search URL if one exists.
+- Two or three client reviews with names and permission to display them.
+- Approved response timing, final inquiry consent wording, and final marketing copy.
+- Supabase project and server credentials, verified Brivity ingestion path, Wesley notification destination, and analytics or ad platform IDs.
 
-The site currently links to the [TREC Consumer Protection Notice](https://www.trec.texas.gov/forms/consumer-protection-notice). Before conducting brokerage activities, provide the completed IABS and other broker required disclosures. Review the applicable requirements using [TREC's official materials](https://www.trec.texas.gov/sites/default/files/2024-2025%20Legal%20Update%20Student%20Manual_edition11.1.pdf). The preview dialog is not a substitute for a completed disclosure.
+The site currently links to the [TREC Consumer Protection Notice](https://www.trec.texas.gov/forms/consumer-protection-notice). TREC requires a homepage link to a [completed IABS](https://www.trec.texas.gov/information-about-brokerage-services-form) with specified wording and minimum text size. The preview dialog is not a substitute for a completed disclosure.
 
 ## Delivery architecture
 
@@ -22,7 +25,7 @@ Confirm the actual Brivity account's supported lead ingestion method before impl
 
 The server should track delivery state and use idempotency so retries cannot create duplicate CRM leads or email notifications. Send success only after accepted delivery or durable queueing. Use an honest retry state on failure. Do not rely on two uncoordinated browser requests for email and CRM.
 
-Replace the preview acknowledgment with approved live contact language. Separate any optional marketing permissions from an inquiry response. Replace the completion preview notice with the actual response process and timing once confirmed.
+Review the draft inquiry call and text consent with Shawn before live collection. Separate any optional marketing permissions from an inquiry response. Replace the completion preview notice with the actual response process and timing once confirmed.
 
 ## Release steps
 
