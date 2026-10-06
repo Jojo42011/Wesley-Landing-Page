@@ -7,7 +7,7 @@ export const site = {
   captionsUrl: "",
   brokerage: "The Branch Real Estate Group Inc.",
   iabsUrl: "",
-  calendarUrl: "",
+  calendarUrl: "https://calendly.com/wesleyodulin/client-consultation",
   newConstructionUrl: "",
   socialLinks: [] as { label: string; url: string }[],
   listingsUrl: "https://www.thebranchinc.com/search",

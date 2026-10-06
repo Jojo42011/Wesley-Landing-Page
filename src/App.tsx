@@ -5,6 +5,7 @@ import { Action } from "./components/Controls";
 import Modal from "./components/Modal";
 import Vsl from "./components/Vsl";
 import Funnel from "./components/Funnel";
+import CalendarBooking from "./components/CalendarBooking";
 
 const sales = [
   {
@@ -41,7 +42,7 @@ const sales = [
 
 export default function App() {
   const [modal, setModal] = useState<
-    "funnel" | "sales" | "privacy" | "brokerage" | null
+    "funnel" | "calendar" | "sales" | "privacy" | "brokerage" | null
   >(null);
   const [answers, setAnswers] = useState<Answers>({ ...emptyAnswers });
   const heroActionRef = useRef<HTMLDivElement>(null);
@@ -67,11 +68,10 @@ export default function App() {
           href="#home"
           aria-label="Dulin Real Estate home"
         >
-          <img className="site-brand-mark" src="/dw-mark.svg" alt="" />
-          <span className="site-brand-copy">
-            <strong>Dulin</strong>
-            <span>REAL ESTATE</span>
+          <span className="site-brand-mark" aria-hidden="true">
+            DRE
           </span>
+          <span className="site-brand-subtitle">Dulin Real Estate</span>
         </a>
       </header>
       <main id="main" className="landing-main container">
@@ -150,9 +150,13 @@ export default function App() {
       {modal === "funnel" && (
         <Funnel
           onClose={() => setModal(null)}
+          onFinished={() => setModal("calendar")}
           answers={answers}
           setAnswers={setAnswers}
         />
+      )}
+      {modal === "calendar" && (
+        <CalendarBooking onClose={() => setModal(null)} />
       )}
       {modal === "sales" && (
         <Modal label="Wesley’s recent sales" onClose={() => setModal(null)}>
@@ -202,7 +206,9 @@ export default function App() {
             <p>
               No advertising trackers or analytics have been added. The hosting
               provider may process basic request information to serve this site.
-              External links follow the destination’s privacy practices.
+              If you choose to book a call, Calendly processes the details you
+              enter there under its own privacy practices. External links follow
+              the destination’s privacy practices.
             </p>
             <p>
               A complete privacy notice and contact preferences will be provided

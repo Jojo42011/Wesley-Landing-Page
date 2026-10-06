@@ -4,7 +4,7 @@ A focused real estate landing page and interactive home brief for buyers and sel
 
 ## Current scope
 
-This is a working **visual and interaction preview**. The seven step questionnaire opens in a dialog and finishes with a review of the visitor's answers and contact details. Choices start blank, advance on selection, and provide a typed Other path. The location answer is free text. There is no backend, email delivery, CRM connection, or analytics tracking. The Submit button reports that delivery is unavailable and does not send anything. Form data stays in React memory and is cleared on refresh. Do not enter real personal information during review.
+This is a working **visual and interaction preview**. The seven step questionnaire opens in a dialog. Choices start blank, advance on selection, and provide a typed Other path. The location answer is free text. Submit opens Wesley's optional Calendly booking widget. There is no backend, email delivery, CRM connection, or analytics tracking for questionnaire answers, so Submit does not deliver them. Calendly booking is separate and sends information entered into Calendly. Form answers stay in React memory and are cleared on refresh. Do not enter real personal information during review.
 
 The media slot is ready for the actual VSL and English captions. Until both are supplied, the black placeholder shows a play icon and an honest availability message when clicked. It is not a personal introduction to Wesley.
 

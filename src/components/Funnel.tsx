@@ -6,13 +6,7 @@ import {
   type FormEvent,
   type SetStateAction,
 } from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ShieldCheck } from "lucide-react";
 import {
   budgets,
   financing,
@@ -72,10 +66,6 @@ const steps = [
   },
 ];
 
-function display(value: string, other: string) {
-  return value === "Other" ? other.trim() : value;
-}
-
 function Choices({
   name,
   options,
@@ -134,16 +124,16 @@ function Choices({
 
 export default function Funnel({
   onClose,
+  onFinished,
   answers,
   setAnswers,
 }: {
   onClose: () => void;
+  onFinished: () => void;
   answers: Answers;
   setAnswers: Dispatch<SetStateAction<Answers>>;
 }) {
   const [step, setStep] = useState(0);
-  const [complete, setComplete] = useState(false);
-  const [submitUnavailable, setSubmitUnavailable] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
 
   const set = <K extends keyof Answers>(key: K, value: Answers[K]) =>
@@ -151,7 +141,7 @@ export default function Funnel({
 
   useEffect(() => {
     heading.current?.focus();
-  }, [step, complete]);
+  }, [step]);
 
   const valid = [
     Boolean(
@@ -206,7 +196,7 @@ export default function Funnel({
   function next(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!valid) return;
-    if (step === steps.length - 1) setComplete(true);
+    if (step === steps.length - 1) onFinished();
     else setStep(step + 1);
   }
 
@@ -229,263 +219,162 @@ export default function Funnel({
     <Modal label="Your home brief" onClose={onClose} wide>
       <div className="funnel-layout">
         <div className="funnel-main">
-          {complete ? (
-            <div className="completion">
-              <span className="eyebrow">YOUR HOME BRIEF</span>
-              <h2 ref={heading} tabIndex={-1}>
-                Review your home brief.
-              </h2>
-              <p>
-                Check the details before you submit,{" "}
-                {answers.name.trim().split(" ")[0]}.
-              </p>
-              <dl className="brief">
-                <div>
-                  <dt>Plans</dt>
-                  <dd>{display(answers.intent, answers.intentOther)}</dd>
-                </div>
-                <div>
-                  <dt>Location</dt>
-                  <dd>{answers.area.trim()}</dd>
-                </div>
-                <div>
-                  <dt>Budget</dt>
-                  <dd>{display(answers.budget, answers.budgetOther)}</dd>
-                </div>
-                <div>
-                  <dt>Financing</dt>
-                  <dd>{display(answers.financing, answers.financingOther)}</dd>
-                </div>
-                <div>
-                  <dt>Agent</dt>
-                  <dd>
-                    {display(
-                      answers.representation,
-                      answers.representationOther,
-                    )}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Timing</dt>
-                  <dd>{display(answers.timeline, answers.timelineOther)}</dd>
-                </div>
-                <div>
-                  <dt>Name</dt>
-                  <dd>{answers.name.trim()}</dd>
-                </div>
-                <div>
-                  <dt>Email</dt>
-                  <dd>{answers.email.trim()}</dd>
-                </div>
-                <div>
-                  <dt>Phone</dt>
-                  <dd>{answers.phone.trim()}</dd>
-                </div>
-                {answers.time && (
-                  <div>
-                    <dt>Best time to call</dt>
-                    <dd>{answers.time}</dd>
-                  </div>
-                )}
-              </dl>
-              {answers.representation === representation[1] && (
-                <p className="small-note">
-                  Already represented? Continue working with your agent. This
-                  brief can help clarify your preferences together.
-                </p>
+          <div className="step-top">
+            <span>YOUR HOME BRIEF</span>
+            <span>
+              {String(step + 1).padStart(2, "0")}{" "}
+              <span className="muted">
+                / {String(steps.length).padStart(2, "0")}
+              </span>
+            </span>
+          </div>
+          <div
+            className="progress-track"
+            aria-label={`Step ${step + 1} of ${steps.length}`}
+          >
+            {steps.map((item, index) => (
+              <span
+                key={item.eyebrow}
+                className={index <= step ? "filled" : ""}
+              />
+            ))}
+          </div>
+          <form key={step} onSubmit={next}>
+            <span className="eyebrow">{steps[step].eyebrow}</span>
+            <h2 ref={heading} tabIndex={-1}>
+              {step === 1
+                ? locationTitle
+                : step === 2
+                  ? budgetTitle
+                  : steps[step].title}
+            </h2>
+            <p className="step-description">
+              {step === 3 ? financingDescription : steps[step].description}
+            </p>
+            {step === 0 && choiceStep("intent", "intentOther", intents)}
+            {step === 1 && (
+              <label className="location-field">
+                City, area, school, or ISD <span>(required)</span>
+                <textarea
+                  name="area"
+                  value={answers.area}
+                  onChange={(event) => set("area", event.target.value)}
+                  placeholder="Tell us where you have in mind"
+                  maxLength={160}
+                  rows={4}
+                  required
+                />
+              </label>
+            )}
+            {step === 2 && choiceStep("budget", "budgetOther", budgets)}
+            {step === 3 && choiceStep("financing", "financingOther", financing)}
+            {step === 4 &&
+              choiceStep(
+                "representation",
+                "representationOther",
+                representation,
               )}
-              <button
-                className="button"
-                type="button"
-                onClick={() => setSubmitUnavailable(true)}
-              >
-                Submit <ArrowUpRight size={17} />
-              </button>
-              {submitUnavailable && (
-                <p className="submission-status" role="alert">
-                  Submission is not connected yet. Your details have not been
-                  sent.
-                </p>
-              )}
-              <button
-                className="text-button"
-                type="button"
-                onClick={() => {
-                  setSubmitUnavailable(false);
-                  setComplete(false);
-                  setStep(steps.length - 1);
-                }}
-              >
-                <ArrowLeft size={16} /> Edit my details
-              </button>
-              <button className="text-button" onClick={onClose}>
-                Back to the page <ArrowUpRight size={16} />
-              </button>
-            </div>
-          ) : (
-            <>
-              <div className="step-top">
-                <span>YOUR HOME BRIEF</span>
-                <span>
-                  {String(step + 1).padStart(2, "0")}{" "}
-                  <span className="muted">
-                    / {String(steps.length).padStart(2, "0")}
-                  </span>
-                </span>
-              </div>
-              <div
-                className="progress-track"
-                aria-label={`Step ${step + 1} of ${steps.length}`}
-              >
-                {steps.map((item, index) => (
-                  <span
-                    key={item.eyebrow}
-                    className={index <= step ? "filled" : ""}
+            {step === 5 && choiceStep("timeline", "timelineOther", timelines)}
+            {step === 6 && (
+              <div className="contact-fields">
+                <label>
+                  Full name <span>(required)</span>
+                  <input
+                    name="name"
+                    autoComplete="name"
+                    value={answers.name}
+                    onChange={(event) => set("name", event.target.value)}
+                    required
+                    maxLength={100}
+                    pattern=".*\S.*"
+                    placeholder="Your name"
                   />
-                ))}
-              </div>
-              <form key={step} onSubmit={next}>
-                <span className="eyebrow">{steps[step].eyebrow}</span>
-                <h2 ref={heading} tabIndex={-1}>
-                  {step === 1
-                    ? locationTitle
-                    : step === 2
-                      ? budgetTitle
-                      : steps[step].title}
-                </h2>
-                <p className="step-description">
-                  {step === 3 ? financingDescription : steps[step].description}
-                </p>
-                {step === 0 && choiceStep("intent", "intentOther", intents)}
-                {step === 1 && (
-                  <label className="location-field">
-                    City, area, school, or ISD <span>(required)</span>
-                    <textarea
-                      name="area"
-                      value={answers.area}
-                      onChange={(event) => set("area", event.target.value)}
-                      placeholder="Tell us where you have in mind"
-                      maxLength={160}
-                      rows={4}
+                </label>
+                <label>
+                  Email address <span>(required)</span>
+                  <input
+                    name="email"
+                    autoComplete="email"
+                    type="email"
+                    value={answers.email}
+                    onChange={(event) => set("email", event.target.value)}
+                    required
+                    maxLength={254}
+                    placeholder="you@example.com"
+                  />
+                </label>
+                <div className="field-pair">
+                  <label>
+                    Phone <span>(required)</span>
+                    <input
+                      name="phone"
+                      autoComplete="tel"
+                      type="tel"
+                      value={answers.phone}
+                      onChange={(event) => set("phone", event.target.value)}
                       required
+                      maxLength={24}
+                      pattern="[+\(\)0-9 .\-]{7,24}"
+                      placeholder="Your phone number"
                     />
                   </label>
-                )}
-                {step === 2 && choiceStep("budget", "budgetOther", budgets)}
-                {step === 3 &&
-                  choiceStep("financing", "financingOther", financing)}
-                {step === 4 &&
-                  choiceStep(
-                    "representation",
-                    "representationOther",
-                    representation,
-                  )}
-                {step === 5 &&
-                  choiceStep("timeline", "timelineOther", timelines)}
-                {step === 6 && (
-                  <div className="contact-fields">
-                    <label>
-                      Full name <span>(required)</span>
-                      <input
-                        name="name"
-                        autoComplete="name"
-                        value={answers.name}
-                        onChange={(event) => set("name", event.target.value)}
-                        required
-                        maxLength={100}
-                        pattern=".*\S.*"
-                        placeholder="Your name"
-                      />
-                    </label>
-                    <label>
-                      Email address <span>(required)</span>
-                      <input
-                        name="email"
-                        autoComplete="email"
-                        type="email"
-                        value={answers.email}
-                        onChange={(event) => set("email", event.target.value)}
-                        required
-                        maxLength={254}
-                        placeholder="you@example.com"
-                      />
-                    </label>
-                    <div className="field-pair">
-                      <label>
-                        Phone <span>(required)</span>
-                        <input
-                          name="phone"
-                          autoComplete="tel"
-                          type="tel"
-                          value={answers.phone}
-                          onChange={(event) => set("phone", event.target.value)}
-                          required
-                          maxLength={24}
-                          pattern="[+\(\)0-9 .\-]{7,24}"
-                          placeholder="Your phone number"
-                        />
-                      </label>
-                      <label>
-                        Best time to call <span>(optional)</span>
-                        <select
-                          name="time"
-                          value={answers.time}
-                          onChange={(event) => set("time", event.target.value)}
-                        >
-                          <option value="">Choose a time</option>
-                          <option>Morning</option>
-                          <option>Afternoon</option>
-                          <option>Evening</option>
-                          <option>Anytime</option>
-                        </select>
-                      </label>
-                    </div>
-                    <label className="contact-consent">
-                      <input
-                        type="checkbox"
-                        checked={answers.contactConsent}
-                        onChange={(event) =>
-                          set("contactConsent", event.target.checked)
-                        }
-                        required
-                      />
-                      <span>
-                        I agree that Wesley Dulin and The Branch Real Estate
-                        Group Inc. may call or text me about my inquiry. Message
-                        and data rates may apply.
-                      </span>
-                    </label>
-                  </div>
-                )}
-                <div className="form-navigation">
-                  {step > 0 ? (
-                    <button
-                      className="back-button"
-                      type="button"
-                      onClick={() => setStep(step - 1)}
+                  <label>
+                    Best time to call <span>(optional)</span>
+                    <select
+                      name="time"
+                      value={answers.time}
+                      onChange={(event) => set("time", event.target.value)}
                     >
-                      <ArrowLeft size={16} /> Back
-                    </button>
-                  ) : (
-                    <span className="privacy-micro">
-                      <ShieldCheck size={16} /> Your pace. Your choice.
-                    </span>
-                  )}
-                  <button className="button" type="submit" disabled={!valid}>
-                    {step === steps.length - 1
-                      ? "Review my home brief"
-                      : "Continue"}
-                    <ArrowRight size={17} />
-                  </button>
+                      <option value="">Choose a time</option>
+                      <option>Morning</option>
+                      <option>Afternoon</option>
+                      <option>Evening</option>
+                      <option>Anytime</option>
+                    </select>
+                  </label>
                 </div>
-                <p className="form-footnote">
-                  {step === steps.length - 1
-                    ? "Preview only. Nothing is submitted or stored."
-                    : "No obligation. Just a thoughtful place to start."}
-                </p>
-              </form>
-            </>
-          )}
+                <label className="contact-consent">
+                  <input
+                    type="checkbox"
+                    checked={answers.contactConsent}
+                    onChange={(event) =>
+                      set("contactConsent", event.target.checked)
+                    }
+                    required
+                  />
+                  <span>
+                    I agree that Wesley Dulin and The Branch Real Estate Group
+                    Inc. may call or text me about my inquiry. Message and data
+                    rates may apply.
+                  </span>
+                </label>
+              </div>
+            )}
+            <div className="form-navigation">
+              {step > 0 ? (
+                <button
+                  className="back-button"
+                  type="button"
+                  onClick={() => setStep(step - 1)}
+                >
+                  <ArrowLeft size={16} /> Back
+                </button>
+              ) : (
+                <span className="privacy-micro">
+                  <ShieldCheck size={16} /> Your pace. Your choice.
+                </span>
+              )}
+              <button className="button" type="submit" disabled={!valid}>
+                {step === steps.length - 1 ? "Submit" : "Continue"}
+                {step !== steps.length - 1 && <ArrowRight size={17} />}
+              </button>
+            </div>
+            {step !== steps.length - 1 && (
+              <p className="form-footnote">
+                No obligation. Just a thoughtful place to start.
+              </p>
+            )}
+          </form>
         </div>
       </div>
     </Modal>

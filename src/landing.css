@@ -14,6 +14,7 @@
   --line: #dedfd3;
   --gold: #a08050;
   --serif: "Newsreader", Georgia, serif;
+  --brand-sans: "Audit Sans", "Helvetica Neue", Arial, sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -125,33 +126,28 @@ legend span {
 }
 .site-brand {
   display: inline-flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
   color: var(--green);
 }
 .site-brand-mark {
   display: block;
-  width: 88px;
-  height: 44px;
-}
-.site-brand-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  white-space: nowrap;
-}
-.site-brand-copy strong {
-  font-family: var(--serif);
-  font-size: 27px;
-  font-weight: 600;
-  line-height: 0.93;
-  letter-spacing: -0.6px;
-}
-.site-brand-copy > span {
-  font-size: 9px;
+  font-family: var(--brand-sans);
+  font-size: 39px;
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 2.5px;
+  line-height: 1;
+  letter-spacing: -4px;
+  color: var(--green);
+}
+.site-brand-subtitle {
+  font-family: var(--brand-sans);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0.2px;
+  color: #777e76;
+  white-space: nowrap;
 }
 .landing-main {
   flex: 1;
@@ -184,7 +180,7 @@ legend span {
 .hero h1 {
   max-width: 900px;
   /* Audit Sans renders when installed locally; use a neutral preview fallback otherwise. */
-  font-family: "Audit Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--brand-sans);
   font-size: clamp(58px, 5.4vw, 70px);
   font-weight: 600;
   line-height: 1.03;
@@ -485,15 +481,11 @@ legend span {
     min-height: 72px;
   }
   .site-brand-mark {
-    width: 68px;
-    height: 34px;
+    font-size: 32px;
+    letter-spacing: -3.3px;
   }
-  .site-brand-copy strong {
-    font-size: 23px;
-  }
-  .site-brand-copy > span {
-    font-size: 8px;
-    letter-spacing: 2px;
+  .site-brand-subtitle {
+    font-size: 10px;
   }
   .landing-main {
     padding-block: 30px 45px;
@@ -608,12 +600,6 @@ legend span {
   .contact-fields select,
   .location-field textarea {
     font-size: 16px;
-  }
-  .completion h2 {
-    font-size: 39px;
-  }
-  .completion > .eyebrow {
-    font-size: 11px;
   }
   .sales-content {
     padding: 52px 25px 30px;
