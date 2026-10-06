@@ -121,7 +121,7 @@ legend span {
   min-height: 94px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 .site-brand {
   display: inline-flex;
