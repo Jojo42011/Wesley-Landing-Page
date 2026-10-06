@@ -11,7 +11,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  MapPin,
   ShieldCheck,
 } from "lucide-react";
 import {
@@ -19,7 +18,6 @@ import {
   financing,
   intents,
   representation,
-  site,
   timelines,
   type Answers,
 } from "../config";
@@ -145,6 +143,7 @@ export default function Funnel({
 }) {
   const [step, setStep] = useState(0);
   const [complete, setComplete] = useState(false);
+  const [submitUnavailable, setSubmitUnavailable] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
 
   const set = <K extends keyof Answers>(key: K, value: Answers[K]) =>
@@ -229,36 +228,16 @@ export default function Funnel({
   return (
     <Modal label="Your home brief" onClose={onClose} wide>
       <div className="funnel-layout">
-        <aside className="funnel-aside">
-          <span className="monogram">
-            W<span>.</span>
-          </span>
-          <div>
-            <span className="eyebrow">LOCAL KNOWLEDGE, PERSONAL PLAN</span>
-            <h2>
-              Good moves start with <em>a conversation.</em>
-            </h2>
-            <p>
-              Tell Wesley what matters to you. He serves Boerne, San Antonio,
-              and the Hill Country.
-            </p>
-          </div>
-          <span className="aside-bottom">
-            <MapPin size={16} /> Boerne · San Antonio · Hill Country
-          </span>
-        </aside>
         <div className="funnel-main">
           {complete ? (
             <div className="completion">
-              <span className="success-icon">
-                <Check />
-              </span>
               <span className="eyebrow">YOUR HOME BRIEF</span>
               <h2 ref={heading} tabIndex={-1}>
-                A clearer place to start.
+                Review your home brief.
               </h2>
               <p>
-                Here is what you shared, {answers.name.trim().split(" ")[0]}.
+                Check the details before you submit,{" "}
+                {answers.name.trim().split(" ")[0]}.
               </p>
               <dl className="brief">
                 <div>
@@ -290,6 +269,24 @@ export default function Funnel({
                   <dt>Timing</dt>
                   <dd>{display(answers.timeline, answers.timelineOther)}</dd>
                 </div>
+                <div>
+                  <dt>Name</dt>
+                  <dd>{answers.name.trim()}</dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd>{answers.email.trim()}</dd>
+                </div>
+                <div>
+                  <dt>Phone</dt>
+                  <dd>{answers.phone.trim()}</dd>
+                </div>
+                {answers.time && (
+                  <div>
+                    <dt>Best time to call</dt>
+                    <dd>{answers.time}</dd>
+                  </div>
+                )}
               </dl>
               {answers.representation === representation[1] && (
                 <p className="small-note">
@@ -297,32 +294,29 @@ export default function Funnel({
                   brief can help clarify your preferences together.
                 </p>
               )}
-              <div className="preview-note">
-                <ShieldCheck size={20} />
-                <p>
-                  <strong>This is a design preview.</strong> Your information
-                  has not been sent or saved. Lead delivery and calendar booking
-                  will be connected before launch.
-                </p>
-              </div>
-              {site.calendarUrl && (
-                <a
-                  className="button completion-calendar"
-                  href={site.calendarUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Book a time with Wesley <ArrowUpRight size={18} />
-                </a>
-              )}
               <button
                 className="button"
+                type="button"
+                onClick={() => setSubmitUnavailable(true)}
+              >
+                Submit <ArrowUpRight size={17} />
+              </button>
+              {submitUnavailable && (
+                <p className="submission-status" role="alert">
+                  Submission is not connected yet. Your details have not been
+                  sent.
+                </p>
+              )}
+              <button
+                className="text-button"
+                type="button"
                 onClick={() => {
+                  setSubmitUnavailable(false);
                   setComplete(false);
                   setStep(steps.length - 1);
                 }}
               >
-                <ArrowLeft size={17} /> Review my details
+                <ArrowLeft size={16} /> Edit my details
               </button>
               <button className="text-button" onClick={onClose}>
                 Back to the page <ArrowUpRight size={16} />
@@ -350,7 +344,7 @@ export default function Funnel({
                   />
                 ))}
               </div>
-              <form onSubmit={next}>
+              <form key={step} onSubmit={next}>
                 <span className="eyebrow">{steps[step].eyebrow}</span>
                 <h2 ref={heading} tabIndex={-1}>
                   {step === 1
@@ -479,7 +473,7 @@ export default function Funnel({
                   )}
                   <button className="button" type="submit" disabled={!valid}>
                     {step === steps.length - 1
-                      ? "Preview my home brief"
+                      ? "Review my home brief"
                       : "Continue"}
                     <ArrowRight size={17} />
                   </button>

@@ -1,7 +1,7 @@
 // Keep preview mode until lead delivery and the completed agent IABS are verified.
 export const site = {
   name: "Wesley Dulin",
-  market: "San Antonio and the Texas Hill Country",
+  market: "Texas",
   preview: true,
   videoUrl: "",
   captionsUrl: "",

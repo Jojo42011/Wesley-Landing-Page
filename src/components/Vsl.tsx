@@ -37,11 +37,6 @@ export default function Vsl() {
           </span>
         </button>
       )}
-      <span className="vsl-caption">
-        {site.videoUrl && site.captionsUrl
-          ? "A LITTLE CLARITY BEFORE YOUR NEXT MOVE"
-          : "VSL PREVIEW"}
-      </span>
     </div>
   );
 }

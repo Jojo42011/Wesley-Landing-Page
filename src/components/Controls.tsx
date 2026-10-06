@@ -1,20 +1,5 @@
 import type { ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
-export function Brand({ light = false }: { light?: boolean }) {
-  return (
-    <a
-      className={`brand ${light ? "brand-light" : ""}`}
-      href="#home"
-      aria-label="Dulin Real Estate, Wesley Dulin"
-    >
-      <span className="monogram">D</span>
-      <span className="brand-copy">
-        <strong>DULIN REAL ESTATE</strong>
-        <span>WESLEY DULIN · REALTOR</span>
-      </span>
-    </a>
-  );
-}
 
 export function Action({
   onClick,

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ShieldCheck, House } from "lucide-react";
 import { emptyAnswers, site, type Answers } from "./config";
-import { Brand, Action } from "./components/Controls";
+import { Action } from "./components/Controls";
 import Modal from "./components/Modal";
 import Vsl from "./components/Vsl";
 import Funnel from "./components/Funnel";
@@ -62,28 +62,30 @@ export default function App() {
         Skip to content
       </a>
       <header className="site-header container">
-        <Brand />
-        <span className="header-location">SAN ANTONIO, TEXAS</span>
+        <a
+          className="site-brand"
+          href="#home"
+          aria-label="Dulin Real Estate home"
+        >
+          <img className="site-brand-mark" src="/dw-mark.svg" alt="" />
+          <span className="site-brand-copy">
+            <strong>Dulin</strong>
+            <span>REAL ESTATE</span>
+          </span>
+        </a>
       </header>
       <main id="main" className="landing-main container">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <h1 id="hero-title">
-              Your next move deserves a plan that fits you.
+              Buying or selling in Texas?
+              <span>Start here.</span>
             </h1>
-            <p>
-              Share what you are looking for in San Antonio or the Hill Country.
-              Wesley can use your home brief to focus the conversation around
-              your goals, budget, and timing.
-            </p>
-            <span className="hero-evidence">
-              5 recent sales listed on HAR · Buyer and seller representation
-            </span>
           </div>
           <Vsl />
           <div className="hero-action-wrap" ref={heroActionRef}>
             <Action onClick={() => setModal("funnel")} className="hero-action">
-              Build my home brief
+              Get started
             </Action>
           </div>
           <button
@@ -92,7 +94,7 @@ export default function App() {
             onClick={() => setModal("sales")}
           >
             <span className="proof-mark" aria-hidden="true">
-              W
+              05
             </span>
             <span>
               <strong>See Wesley’s recent sales</strong>
@@ -101,72 +103,10 @@ export default function App() {
             <ArrowUpRight size={16} strokeWidth={1.6} aria-hidden="true" />
           </button>
         </section>
-        <section className="below-hero" aria-label="How it works">
-          <div className="steps-intro">
-            <span className="eyebrow">A SIMPLE PLACE TO START</span>
-            <h2>Share the details. See the plan.</h2>
-          </div>
-          <div className="simple-steps">
-            <div>
-              <span>01</span>
-              <h3>Tell us your plans</h3>
-              <p>Buying, selling, or still exploring are all welcome.</p>
-            </div>
-            <div>
-              <span>02</span>
-              <h3>Make it yours</h3>
-              <p>Choose what fits and write in anything the options miss.</p>
-            </div>
-            <div>
-              <span>03</span>
-              <h3>Review your brief</h3>
-              <p>See your priorities together before the next conversation.</p>
-            </div>
-          </div>
-          <details className="faq">
-            <summary>Does it cost anything to use a buyer’s agent?</summary>
-            <p>
-              Agent compensation is negotiable and depends on your agreement.
-              Before touring homes with an agent, review a written buyer
-              agreement that explains the services and how the agent would be
-              paid. Wesley can talk through the options with you.
-            </p>
-          </details>
-          <details className="faq">
-            <summary>What if I am just exploring?</summary>
-            <p>
-              That is fine. Share where you are now, and use the brief to sort
-              through your next steps at your own pace.
-            </p>
-          </details>
-          <div className="secondary-actions">
-            <Action onClick={() => setModal("funnel")}>
-              Build my home brief
-            </Action>
-            <a
-              href={site.listingsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Search The Branch listings <ArrowUpRight size={16} />
-            </a>
-            {site.newConstructionUrl && (
-              <a
-                href={site.newConstructionUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Explore new construction <ArrowUpRight size={16} />
-              </a>
-            )}
-          </div>
-        </section>
       </main>
       {modal === null && showMobileAction && (
         <div className="mobile-action">
-          <Action onClick={() => setModal("funnel")}>
-            Build my home brief
-          </Action>
+          <Action onClick={() => setModal("funnel")}>Get started</Action>
         </div>
       )}
       <footer className="footer container">

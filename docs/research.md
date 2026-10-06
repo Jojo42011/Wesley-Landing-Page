@@ -4,7 +4,7 @@ Researched September 20, 2026. These sources guide design decisions. They do not
 
 ## September 29 copy revision
 
-[Acquisition.com's Offers checklist](https://www.acquisition.com/hubfs/Offer%20Checklists%20-%20PDF%20Downloads/Pricing-Value-Checklist.pdf?hsLang=en) frames value around a desired outcome, the likelihood of achieving it, time, and effort. [Alex Hormozi's Proof > Promise note](https://www.acquisition.com/mozi-money-minute/trade-time-for-money-0?hs_amp=true) argues that concrete proof on a sales page is more persuasive than an unsupported claim. The revised hero names the outcome of finding the right San Antonio home and the friction of guesswork. The short form makes the first action concrete. An on page summary of [Wesley Dulin's recent sales on HAR](https://www.har.com/realestatepro/sold-by-agent/sa-836365) supplies attributed buyer and seller transaction evidence without inventing a lifetime sales count. The source is available for verification and the static summary needs periodic review.
+[Acquisition.com's Offers checklist](https://www.acquisition.com/hubfs/Offer%20Checklists%20-%20PDF%20Downloads/Pricing-Value-Checklist.pdf?hsLang=en) frames value around a desired outcome, the likelihood of achieving it, time, and effort. [Alex Hormozi's Proof > Promise note](https://www.acquisition.com/mozi-money-minute/trade-time-for-money-0?hs_amp=true) argues that concrete proof on a sales page is more persuasive than an unsupported claim. The current hero gives Texas buyers and sellers a direct starting point. The button says "Get started" and opens the short questionnaire. An on page summary of [Wesley Dulin's recent sales on HAR](https://www.har.com/realestatepro/sold-by-agent/sa-836365) supplies attributed buyer and seller transaction evidence without inventing a lifetime sales count. The source is available for verification and the static summary needs periodic review.
 
 [Zillow's 2025 buyer survey](https://www.zillow.com/research/buyers-housing-trends-report-2025/) reports that contacting an agent was the first home buying task for 52% of surveyed buyers, and 60% described home buying as at least somewhat stressful. The revised copy therefore presents Wesley and a clearer search plan immediately. These sources guide the hypothesis; they do not prove this specific headline will convert best.
 
@@ -20,7 +20,7 @@ Researched September 20, 2026. These sources guide design decisions. They do not
 
 ## Lower cognitive effort
 
-[Baymard: Required and Optional Form Fields](https://baymard.com/research-articles/required-optional-form-fields) shows that visitors can misinterpret unlabeled optional fields. The contact step explicitly marks every field. Phone and preferred call time are optional. Name is one field rather than separate first and last inputs.
+[Baymard: Required and Optional Form Fields](https://baymard.com/research-articles/required-optional-form-fields) shows that visitors can misinterpret unlabeled optional fields. The contact step explicitly marks every field. Phone is required and preferred call time is optional. Name is one field rather than separate first and last inputs.
 
 [Baymard: Drop Down Usability](https://baymard.com/research-articles/drop-down-usability) supports choosing controls appropriate to the number of options. Short preference lists are visible radio choices. Location is free text because visitors may name a city, area, school, or district. A small optional call time list uses a select control.
 
@@ -28,13 +28,13 @@ The seven step format, progress indicator, optional exploratory answers, and pre
 
 ## Performance and mobile
 
-[Google: Mobile Page Speed Benchmarks](https://www.thinkwithgoogle.com/_qs/documents/57/mobile-page-speed-new-industry-benchmarks.pdf) reports associations between mobile performance and abandonment. This older study supports prioritizing speed, not promising a specific lift today. This build serves local fonts and images, defers the lower image, uses a high priority hero image, and loads no video before intent is expressed.
+[Google: Mobile Page Speed Benchmarks](https://www.thinkwithgoogle.com/_qs/documents/57/mobile-page-speed-new-industry-benchmarks.pdf) reports associations between mobile performance and abandonment. This older study supports prioritizing speed, not promising a specific lift today. This build serves local fonts, keeps the first screen free of decorative images, and loads no video before intent is expressed.
 
 ## Message strategy
 
 The lead promise is about finding a home that fits the visitor's life. This is a relevance and emotional framing hypothesis: readers can picture their own next chapter without being told how they should live. Copy remains inclusive and does not steer buyers using demographic assumptions. The location prompt does not make unsupported safety, school, appreciation, or investment claims.
 
-The page has one primary destination: the home brief. A compact process section and two FAQs support the decision without becoming a full website. The first step asks why someone is here rather than for contact information. Contact details come after preferences, with no fake success message or hidden submission.
+The page has one primary destination: the questionnaire. Wesley's call feedback led to a simpler hero, a visible "Get started" action, Texas wide wording, and no secondary process section. The first step asks why someone is here rather than for contact information. Contact details come after preferences, with no fake success message or hidden submission.
 
 ## Next phase experiments
 
