@@ -134,7 +134,7 @@ legend span {
 .site-brand-mark {
   display: block;
   font-family: var(--brand-sans);
-  font-size: 39px;
+  font-size: 45px;
   font-weight: 700;
   line-height: 1;
   letter-spacing: -4px;
@@ -142,10 +142,10 @@ legend span {
 }
 .site-brand-subtitle {
   font-family: var(--brand-sans);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   line-height: 1.1;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.34px;
   color: #777e76;
   white-space: nowrap;
 }
@@ -481,11 +481,12 @@ legend span {
     min-height: 72px;
   }
   .site-brand-mark {
-    font-size: 32px;
-    letter-spacing: -3.3px;
+    font-size: 38px;
+    letter-spacing: -3.8px;
   }
   .site-brand-subtitle {
-    font-size: 10px;
+    font-size: 8.5px;
+    letter-spacing: 0.2px;
   }
   .landing-main {
     padding-block: 30px 45px;
